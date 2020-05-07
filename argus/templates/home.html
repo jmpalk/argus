@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{%block content %}
+
+		<h2> Most Recent Scan: {{ latest_scan_list.0.start_date }}</h2>
+		<h3> <p>Host range scanned: {{ latest_scan_list.0.scan_range }}</p><p>Port range scanned: {{ latest_scan_list.0.port_range }}</p><p>{{ latest_scan_list.0.host_set.all.count }} hosts identified</p></h3>
+		{% if latest_scan_list.0.host_set %}
+		<table id="host_table" cellpadding=5px>
+			<tr><td><strong>Hosts identified</strong></td><td><strong>Ports identified</strong></td></tr>
+			{% for host in latest_scan_list.0.host_set.all|dictsort:"ip_address" %}
+				<tr><td><a href= "{% url 'argus:host_detail' host.id %}">{{ host.ip_address }}</a></td><td>{% for port in host.port_set.all|dictsort:"port_number" %}{{ port.port_number }} {% endfor %}</td></tr>
+			{% endfor %}
+		</table>
+		<p><a href="{% url 'argus:scan_detail' latest_scan_list.0.id %}">Full scan details</a></p>
+		{% else %}
+			<p>No results for this scan</p>
+		{% endif %}
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+		<h2> Host: {{ host_ip }} <p> Date range searched: {{ from_scan_date|date:"M j, Y" }} - {{ to_scan_date|date:"M j, Y" }}</p><p>Number of results: {{ num_hosts }}</p></h2>
+		{% if host_set %}
+		<table id="host_table" cellpadding=5px>
+			<tr><td><strong>Scan date</strong></td><td><strong>Ports identified</strong></td></tr>
+			{% for host in host_set %}
+				<tr><td><a href= "{% url 'argus:host_detail' host.id %}">{{ host.host_scan_time }}</a></td><td>{% for port in host.port_set.all|dictsort:"port_number" %}{{ port.port_number }} {% endfor %}</td></tr>
+			{% endfor %}
+		</table>
+		{% else %}
+			<p>No results for this search</p>
+		{% endif %}
+		<br>
+		{% if start != 0 or next_set != -1 %}
+			{% if start == 0 %}
+			Start
+			{% else %}
+				<a href="{% url 'argus:hostsearchresults' %}?host_ip={{ host_ip}}&fsd={{ from_scan_date|date:"dmY" }}&tsd={{ to_scan_date|date:"dmY" }}&c={{ count }}&s={{ prev }}">prev</a> 
+			{% endif %}
+			... 
+			{% if next_set == -1 %}
+		 	End 
+			{% else %}
+				<a href="{% url 'argus:hostsearchresults' %}?host_ip={{ host_ip}}&fsd={{ from_scan_date|date:"dmY" }}&tsd={{ to_scan_date|date:"dmY" }}&c={{ count }}&s={{ next_set }}">next</a> 
+			{% endif %}
+		{% endif %}
+		<p><a href="{% url 'argus:scan_home' %}">Home</a></p>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+		<h2> Scan date: {{ scan.start_date }} <p>Host range scanned: {{ scan.scan_range }}</p><p overflow-wrap="break-word">Port range scanned: {{ scan.port_range }}</p><p>{{scan.host_set.all.count }} Hosts Identified</p></h2>
+		{% if hosts %}
+		<table id="host_table" cellpadding=5px>
+			<tr><td><strong>Hosts identified</strong></td><td><strong>Ports identified</strong></td></tr>
+			{% for host in hosts|dictsort:"ip_address" %}
+				<tr><td><a href= "{% url 'argus:host_detail' host.id %}">{{ host.ip_address }}</a></td><td>{% for port in host.port_set.all|dictsort:"port_number" %}{{ port.port_number }}  {% endfor %}</td></tr>
+			{% endfor %}
+		</table>
+		{% else %}
+			<p>No results for this scan</p>
+		{% endif %}
+		<br>
+		{% if start != 0 or next_set != -1 %}
+			{% if start == 0 %}
+			Start
+			{% else %}
+				<a href="{% url 'argus:scan_detail' scan.id %}?c={{ count }}&s={{ prev }}">prev hosts</a> 
+			{% endif %}
+			... 
+			{% if next_set == -1 %}
+		 	End 
+			{% else %}
+				<a href="{% url 'argus:scan_detail' scan.id %}?c={{ count }}&s={{ next_set }}">next hosts</a></p>
+			{% endif %}
+		{% endif %}
+		<p><a href="{% url 'argus:scan_home' %}">Home</a></p>
+
+{% endblock %}

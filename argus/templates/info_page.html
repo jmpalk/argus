@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'argus/style.css' %}">
+	<head>
+		<title>Argus</title>
+
+	</head>
+
+	<body>
+		
+		<div class="info_wrapper">
+			<div class="box header">
+				<h1>Argus</h1>
+				<p>Masscan management</p>
+			</div>
+			<div class="box content">
+				{% block content %}
+
+				{% endblock %}
+			</div>
+
+			<div class="box footer">
+				<p>something goes here</p>
+			</div>
+
+		</div>
+
+	</body>
+
+</html>

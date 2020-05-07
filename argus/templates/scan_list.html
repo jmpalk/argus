@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+		{% if scan_list %}
+			<table id="scan_list_table" cellpadding=10px>
+				<tr>
+					<td width="13%"><strong>Scan Time</strong></td>
+					<td width="13%"><strong>IP Ranges</strong></td>
+					<td><strong>Port Ranges</strong></td>
+					<td width="13%"><strong># of Hosts Found</strong></td>
+				</tr>
+		
+				{% for scan in scan_list %}
+					<tr><td><a href="{% url 'argus:scan_detail' scan.id %}">{{ scan.start_date|date:"M j Y" }}<br>{{ scan.start_date|date:"G:i:s" }}</a></td><td>{{ scan.scan_range }}</td><td>{{ scan.port_range }}</td><td align=center>{{ scan.host_set.count }}</td></tr>
+				{% endfor %}
+			</table>
+		{% else %}
+			<p>No scans found</p>
+		{% endif %}
+
+		<p>
+		{% if start == 0 %}
+		Newest
+		{% else %}
+			<a href="{% url 'argus:scan_list' %}?c={{ count }}&s={{ prev }}">newer</a> ...
+		{% endif %}
+		{% if next_set == -1 %}
+		 Oldest 
+		{% else %}
+			<a href="{% url 'argus:scan_list' %}?c={{ count }}&s={{ next_set }}">older</a></p>
+		{% endif %}
+		
+		<p><a href="{% url 'argus:scan_home' %}">Home</a></p>
+
+{% endblock %}

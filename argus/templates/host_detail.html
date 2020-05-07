@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+		<h1> {{ host.ip_address }} </h1>
+		{% if ports %}
+		<table id="port_table" border=1px>
+
+			{% for port in ports|dictsort:"port_number" %}
+				<tr>
+			
+					<td width="150px"> <p class="port_para">Port Number: {{ port.port_number }}</p>
+					     <p class="port_para">Protocol: {{ port.protocol }}</p>
+                                             <p class="port_para">Status: {{ port.status }}</p>
+	                                     <p class="port_para">Reason: {{ port.reason }}</p>
+					</td>
+					{% if port.service_set.all %}
+						{% for service in port.service_set.all %}
+							{% if forloop.first %}
+							<td>
+							 <p>{{ service.name }}</p>
+							 <p>{{ service.banner }}</p>
+							</td>
+							{% else %}
+								</tr>
+								<tr>
+								<td bgcolor="grey"></td>
+								<td>
+							 		<p>{{ service.name }}</p>
+							 		<p>{{ service.banner }}</p>
+								</td>
+							{% endif %}
+						
+						{% endfor %}
+					{% endif %}
+				</tr>
+			{% endfor %}
+		</table>
+		{% else %}
+			<p>No results for this host</p>
+		{% endif %}
+		<p><a href="{% url 'argus:scan_detail' host.scan.id %}">Back to scan</a></p>
+		<p><a href="{% url 'argus:scan_home' %}">Home</a></p>
+
+{% endblock %}

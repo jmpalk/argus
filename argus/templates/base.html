@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'argus/style.css' %}">
+	<head>
+		<title>Argus</title>
+	</head>
+	<body>
+	<div class="wrapper">
+		<div class="box header">
+			<h1>Argus</h1>
+			<p>Masscan management</p>
+		</div>
+		<div class="box recent">
+			<h2>Recent scans:</h2>
+			<table id="ip_scan_table">
+				{% for recent_scan in latest_scan_list %}
+					<tr><td><a href="{% url 'argus:scan_detail' recent_scan.id %}">{{ recent_scan.start_date|date:"M j Y G:i" }}</a></td></tr>
+				{% endfor %}
+			</table>
+			</p>
+			<a href="{% url 'argus:scan_list' %}?s=0&c=5">All scans</a>
+
+			<form action="{% url 'argus:hostsearchresults' %}" method="post">
+				{% csrf_token %}
+				{{ host_search_form.as_p }}
+				<input type="submit" value="Submit">
+			</form>
+
+		</div>
+		<div class="box content">
+			{% block content %}
+
+			{% endblock %}
+		</div>
+		<div class="box new_scan">
+			<h2>Start a scan</h2>
+			<form method="POST" action="{% url 'argus:launch' %}">
+				<table class="scan_table">
+					<tr>
+						<td>
+				<p><strong>Address or address range: <em>192.168.1.1 or 10.0.0.0/8</em></strong></p>
+				<input name="scan_range" id="scan_range" placeholder="0.0.0.0" />
+						</td>
+						<td>
+				<p><strong>Address or address range to exclude: <em>192.168.1.1 or 10.0.0.0/8</em></strong></p>
+				<input name="exclude_range" id="exclude_range" placeholder="0.0.0.0"  value="0.0.0.0"/>
+						</td>
+						<td>
+				<p><strong>Port number or range: <em>ex: 443 or 22,80,443 or 1-1000</em></strong></p>
+				<input name="port_range" id="port_range" placeholder="Enter one or more port ranges or numbers" />
+						</td>
+					<tr>
+				</table>
+				<p><input type="submit" value="submit"></p>
+
+				{% csrf_token %}
+			</form>
+		</div>
+		<div class="box footer">
+			<p><a href="{% url 'argus:logout' %}">Logout</a></p>
+		</div>
+	</div>
+	</body>
+
+</html>

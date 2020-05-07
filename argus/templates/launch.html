@@ -1,0 +1,12 @@
+	{% extends "info_page.html" %}	
+	{% block content %}
+
+		<h1>Scan launched</h1>
+		<p>You have launched the following scan:</p>
+		<p><em>masscan {{ scan_range }} -p {{ port_range }} --banners --dport 61001 --max-rate 500</em></p> 
+		<p>With the following excluded IP ranges: {{ exclude_range }}</p>
+		<p>The scan results will be uploaded into ikkyu automatically.</p>
+		<p>Please check back for results later</p>
+		<p><a href="{% url 'argus:scan_home' %}">Home</a></p>
+
+	{% endblock %}

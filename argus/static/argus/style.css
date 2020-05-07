@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree&Martel+Sans:wght@300&display=swap");
+
+
+body{
+	font-family: 'Bai Jamjuree', sans-serif;
+	font-size: 14px;
+	color: #000;
+	margin: 40px;
+	background-color: DarkGrey;
+}
+
+col-heading {
+	text-align: center;
+	font-weight: bold;
+}
+
+td {
+	white-space: normal;
+	word-break: break-all;
+}
+
+
+h1 {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+h2 {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.port_para {
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+.scan_table {
+	margin: 0px 30px;
+}
+
+.header {
+	grid-area: header;
+	background-color: darkturquoise;
+	background-image: linear-gradient(to right, darkturquoise, DarkGrey);
+}
+
+.recent {
+
+	grid-area: recent;
+	background-color: white;
+}
+
+.content {
+	grid-area: content;
+	background-color: white;
+}
+
+.new_scan {
+	grid-area: new_scan;
+	background-color: white;
+}
+
+.footer {
+	grid-area: footer;
+	background-color: white;
+}
+
+.wrapper {
+	display: grid;
+	grid-template-columns: 25% 53% 20%;
+	grid-template-areas:
+		"header header ..."
+			"recent content content"
+			"new_scan new_scan new_scan" 
+				"footer footer footer";
+	grid-gap: 10px;
+	color: blue;
+}
+
+.info_wrapper {
+	display: grid;
+	grid-template-areas:
+	"header"
+	"content"
+	"footer";
+	grid-gap: 10px;
+}
+
+.box {
+	color: black;
+	border-radius: 5px;
+	padding: 10px;
+	overflow-wrap: break-word;
+}
+

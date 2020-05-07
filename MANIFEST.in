@@ -1,0 +1,6 @@
+include LICENSE
+include README.rst
+include argus/wrapper.sh
+recursive-include docs/ * 
+recursive-include argus/static *
+recursive-include argus/templates *

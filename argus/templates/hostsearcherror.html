@@ -1,0 +1,11 @@
+	{% extends "info_page.html" %}	
+	{% block content %}
+
+		<h1>Error</h1>
+			<h2>There was a problem with your search request.</h2>
+		{% if host_ip %}
+			<p>{{ host_ip }} is not a valid IP address or address range.</p>
+		{% endif %}
+		<p><a href="{% url 'argus:scan_home' %}">Please try again</a></p>
+
+	{% endblock %}

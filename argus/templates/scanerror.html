@@ -1,0 +1,18 @@
+	{% extends "info_page.html" %}	
+	{% block content %}
+
+		<h1>Error</h1>
+			<h2>There was a problem with your scan request.</h2>
+		{% if scan_range %}
+			<p>{{ scan_range }} is not a valid IP range.</p>
+		{% endif %}
+		{% if port_range %}
+			<p>{{ port_range }} is not a valid port range.</p>
+		{% endif %}
+		{% if exclude_range %}
+			<p>{{ exclude_range }} is not a valid IP range</p>
+		{% endif %}
+	
+		<p><a href="{% url 'argus:scan_home' %}">Please try again</a></p>
+
+	{% endblock %}

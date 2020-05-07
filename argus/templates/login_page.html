@@ -1,0 +1,14 @@
+	{% extends "info_page.html" %}	
+	{% block content %}
+
+		<h2>Login</h2>
+		<form action="{% url 'argus:login' %}" method="post">
+			{% csrf_token %}
+			{{ login_form.as_p }}
+			<input type="submit" value="Login">
+		</form>
+		{% if login_failed %}
+			<p color='red'>Login failed - incorrect username or password</p>
+		{% endif %}
+
+	{% endblock %}
