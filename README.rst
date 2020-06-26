@@ -4,8 +4,8 @@ Argus
 
 
 Argus is a Django app to run masscan scans and manage the results. It is
-primarily intended for environments where assessors, security ops staff
-or internal pentesters will be scannned repeatedly.
+primarily intended for environments that will be scanned repeatedly by assessors, 
+security ops staff or internal pentesters.
 
 Scans generate data on Hosts, which have Ports and Services. Currently, 
 results can be viewed on a scan basis, or by searching for hosts.
